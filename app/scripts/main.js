@@ -1,12 +1,4 @@
 Parse.initialize(getParseKey1(), getParseKey2());
-var div = document.createElement('div');
-div.setAttribute('id', 'container');
-
-$('body').append(div);
-
-console.log('\'Allo \'Allo!');
-
-
 // PARSE TEST CODE
 // var user = new Parse.User();
 // user.set("username", "my name");
@@ -45,31 +37,5 @@ function loggedIn(user) {
   // get ALL postings
   // 
 }
-
-var Post = Backbone.Model.extend({
-  defaults: {
-    description: '',
-    username: '',
-    picture: '',
-    price: 0,
-    quantity: 0
-  }
-});
-
-var User = Backbone.Model.extend({
-  defaults: {
-    username: '',
-    password: '',
-    email: ''
-  }
-});
-
-
-var user1 = new User({
-  username: 'testuser',
-  password: 'testpassword',
-  email: 'ycp217@nyu.edu'
-});
-console.log(user1.toJSON());
 
 
