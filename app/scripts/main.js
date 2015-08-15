@@ -63,12 +63,14 @@
 var React = require('react');
 var Router = require('react-router');
 var Posts = require('./posts');
+var Secrets= require('./secrets');
+// import Secrets from './secrets';
 var DefaultRoute = Router.DefaultRoute;
 var Route = Router.Route;
 var Link = Router.Link;
 var RouteHandler = Router.RouteHandler;
 
-Parse.initialize("8xxTI4MLCvRxUaLvWYJOduYYBlZh4weap7SeXPzD", "ZrVdZrncthBhLIBbRtjpvqYZDZ5O9qocFt86skSY");
+Parse.initialize(Secrets.getParseKey1(), Secrets.getParseKey2());
 
 var Header = React.createClass({
   render: function() {
