@@ -2,8 +2,6 @@ var React = require('react');
 var Posts = require('./posts');
 var Orders = require('./orders');
 
-var React = require('react');
-
 var Secrets = require('./secrets');
 Parse.initialize(Secrets.getParseKey1(), Secrets.getParseKey2());
 

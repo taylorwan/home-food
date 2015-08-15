@@ -64,6 +64,7 @@ var React = require('react');
 var Router = require('react-router');
 var Posts = require('./posts');
 var Profile = require('./profile');
+var AddPost = require('./addPost');
 var Secrets = require('./secrets');
 // import Secrets from './secrets';
 var DefaultRoute = Router.DefaultRoute;
@@ -88,18 +89,17 @@ var Header = React.createClass({
             <Link to="/" className="navbar-brand col-md-2">HomeFood</Link>
           </div>
           <nav id="bs-navbar" className="collapse navbar-collapse">
-            <ul className="nav navbar-nav">
-              { Parse.User.current() ? 
-                <li><a href="" onClick={this.props.logout}>Logout</a></li> : 
+            { !Parse.User.current() ?
+              <ul className="nav navbar-nav">
                 <li><a href="" data-toggle="modal" data-target="#loginModal">Login</a></li>
-              }
-              <li>
-                <Link to="posts">Browse Food</Link>
-              </li>
-              <li>
-                <Link to="profile">Profile</Link>
-              </li>
-            </ul>
+              </ul> :
+              <ul className="nav navbar-nav">
+                <li><Link to="posts">Browse Food</Link></li>
+                <li><Link to="addPost">Post Food</Link></li>
+                <li><Link to="profile">Profile</Link></li>
+                <li><a href="" onClick={this.props.logout}>Logout</a></li>
+              </ul>
+            }
           </nav>
         </div>
       </header>
@@ -208,6 +208,7 @@ var routes = (
     <DefaultRoute handler={Home} />
     <Route name="posts" handler={Posts} />
     <Route name="profile" handler={Profile} />
+    <Route name="addPost" handler={AddPost} />
   </Route>
 );
 
