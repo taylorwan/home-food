@@ -58,6 +58,21 @@ $brand-white: #FEF8F6;
   }
 }
 
+.profile-img-holder {
+  width: 100px;
+  margin: 0 auto;
+}
+
+.post,
+.order {
+  padding: 0.5em 1em 0.1em;
+  margin-bottom: 0.2em;
+}
+
+.order-this-item {
+  margin-top: 0.2em;
+}
+
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
