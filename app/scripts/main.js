@@ -63,7 +63,8 @@
 var React = require('react');
 var Router = require('react-router');
 var Posts = require('./posts');
-var Secrets= require('./secrets');
+var Profile = require('./profile');
+var Secrets = require('./secrets');
 // import Secrets from './secrets';
 var DefaultRoute = Router.DefaultRoute;
 var Route = Router.Route;
@@ -96,7 +97,7 @@ var Header = React.createClass({
                 <Link to="posts">Browse Food</Link>
               </li>
               <li>
-                <a href="profile.html">Profile</a>
+                <Link to="profile">Profile</Link>
               </li>
             </ul>
           </nav>
@@ -206,6 +207,7 @@ var routes = (
   <Route handler={App} path="/">
     <DefaultRoute handler={Home} />
     <Route name="posts" handler={Posts} />
+    <Route name="profile" handler={Profile} />
   </Route>
 );
 
