@@ -55,13 +55,59 @@
     </header>
 
     <div class="content">
-      <div class="jumbotron container">
+      <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <h1>Homemade delicacies, delivered.</h1>
-            <a href="#" class="btn btn-lg" data-toggle="modal" data-target="#loginModal">Get Started</a>
+            <div class="all-posts">
+              <h3 class="text-info">Posts</h3>
+              <ul class="posts list-unstyled">
+                <li class="bg-info post">
+                  <h4 class="post-type pull-left">Samosas</h4>
+                  <a href="#" class="pull-right order-this-item btn btn-primary btn-sm" data-toggle="modal" data-target="#orderItemModal">Order</a>
+                  <table class="table table-condensed">
+                    <tr class="price">
+                      <td class="heading">Price</td>
+                      <td class="value">$3/unit</td>
+                    </tr>
+                    <tr class="available">
+                      <td class="heading">Available</td>
+                      <td class="value">3 days notice</td>
+                    </tr>
+                  </table>
+                </li>
+                <li class="bg-info post">
+                  <h4 class="post-type pull-left">Tamales</h4>
+                  <a href="#" class="pull-right order-this-item btn btn-primary btn-sm" data-toggle="modal" data-target="#orderItemModal">Order</a>
+                  <table class="table table-condensed">
+                    <tr class="price">
+                      <td class="heading">Price</td>
+                      <td class="value">$2/unit</td>
+                    </tr>
+                    <tr class="available">
+                      <td class="heading">Available</td>
+                      <td class="value">2 days notice</td>
+                    </tr>
+                  </table>
+                </li>
+                <li class="bg-info post">
+                  <h4 class="post-type pull-left">Lobster Ravioli</h4>
+                  <a href="#" class="pull-right order-this-item btn btn-primary btn-sm" data-toggle="modal" data-target="#orderItemModal">Order</a>
+                  <table class="table">
+                    <tr class="price">
+                      <td class="heading">Price</td>
+                      <td class="value">$7/lb</td>
+                    </tr>
+                    <tr class="available">
+                      <td class="heading">Available</td>
+                      <td class="value">5 days notice</td>
+                    </tr>
+                  </table>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
+
       </div>
     </div>
 
@@ -76,6 +122,22 @@
               <input type="text" class="form-control" placeholder="Username"/>
               <input type="password" class="form-control" placeholder="Password"/>
               <button type="submit" class="btn btn-primary">Log in</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade login-modal" id="orderItemModal" tabindex="-1" role="dialog" aria-labelledby="orderItemModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="orderItemModalLabel">New order</h4>
+            <form>
+              <input type="text" class="form-control" placeholder="Quantity"/>
+              <input type="text" class="form-control" placeholder="Delivery Date"/>
+              <button type="submit" class="btn btn-primary">Order</button>
             </form>
           </div>
         </div>
