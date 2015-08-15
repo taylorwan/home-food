@@ -48,7 +48,6 @@ gulp.task('scripts', () => {
     .bundle()
     .pipe(source(jsBundleFile))
     .pipe(buffer())
-    .pipe($.uglify())
     .pipe(gulp.dest('dist/scripts'));
 });
 
@@ -89,7 +88,7 @@ gulp.task('html', ['styles'], () => {
 
   return gulp.src('app/*.html')
     .pipe(assets)
-    .pipe($.if('*.js', $.uglify()))
+    //.pipe($.if('*.js', $.uglify()))
     .pipe($.if('*.css', $.minifyCss({
       compatibility: '*'
     })))
