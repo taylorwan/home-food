@@ -81,20 +81,14 @@ var Posts = React.createClass({
     }
     return (
       <div className="content">
-      <div className="container">
-      <div className="row">
-      <div className="col-md-12">
-      <div className="all-posts">
-      <h3 className="text-info">Recently Added</h3>
-      <ul className="posts list-unstyled">
-      { this.state.posts.slice(0, limit ).map(function(post, index) {
-        return <Post {...post} key={index} orderable={orderable}/>
-      }) }
-      </ul>
-      </div>
-      </div>
-      </div>
-      </div>
+        <div className="container">
+          <h3 className="text-info">Recently Added</h3>
+          <ul className="posts list-unstyled">
+            { this.state.posts.slice(0, limit ).map(function(post, index) {
+              return <Post {...post} key={index}/>
+            }) }
+          </ul>
+        </div>
       </div>
     )
   }

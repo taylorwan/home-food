@@ -18,7 +18,16 @@ var Payment = React.createClass({
     query.equalTo("objectId", userId);
     query.find({
       success: function(results) {
-        console.log(results);
+        var query2 = new Parse.query("Post");
+          query2.equalTo("objectId", foodId);
+          query2.find({
+            success: function(results) {
+              console.log(results);
+            },
+            error: function(error) {
+              alert("Error: " + error.code + " " + error.message);
+            }
+          });
       },
       error: function(error) {
         alert("Error: " + error.code + " " + error.message);
