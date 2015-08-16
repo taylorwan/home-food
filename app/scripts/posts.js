@@ -13,17 +13,27 @@ var transition = function() {
 
 var Post = React.createClass({
   render: function() {
+    if (this.props.madeby === Parse.User.current().get("username")) {
+      this.props.orderable = false;
+    }
     return (
       <li className="bg-info post">
       <h4 className="post-type pull-left">{this.props.name}</h4>
       {
-        this.props.orderable ? <Link className="pull-right button" to="food" params={{id: this.props.id + "" }} onClick={transition}>Order</Link> : null
+        this.props.orderable ?
+        <Link
+        to="addOrder"
+        className="pull-right button"
+        params={{id: this.props.objectId}}
+        onClick={transition}>
+        Order</Link> :
+        null
       }
       <br/>
       <br/>
       <table className="table table-condensed">
       <tr className="image">
-      <img src={this.props.imageLink} height="200px" width="280px" className="img-responsive"/>
+      <img src={this.props.imageLink} className="img-responsive" width="400px" height="200px" />
       </tr>
       <tr className="foodType">
       <td className="heading">Cuisine</td>
@@ -85,7 +95,7 @@ var Posts = React.createClass({
           <h3 className="text-info">Recently Added</h3>
           <ul className="posts list-unstyled">
             { this.state.posts.slice(0, limit ).map(function(post, index) {
-              return <Post {...post} key={index}/>
+              return <Post {...post} key={index} orderable={orderable}/>
             }) }
           </ul>
         </div>
