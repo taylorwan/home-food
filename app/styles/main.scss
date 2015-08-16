@@ -5,13 +5,11 @@ $icon-font-path: '../fonts/';
 // endbower
 
 // fonts
-@import url('http://fonts.googleapis.com/css?family=Roboto');
+
 @import url('http://fonts.googleapis.com/css?family=Raleway');
-@import url('http://fonts.googleapis.com/css?family=Open+Sans');
 
 @import url('http://fonts.googleapis.com/css?family=Pacifico');
-@import url('http://fonts.googleapis.com/css?family=Allura');
-@import url('http://fonts.googleapis.com/css?family=Lovers+Quarrel');
+
 
 $yellow: #f4d300;
 $green: #62d435;
@@ -26,8 +24,8 @@ $brand-secondary: $green;
 $brand-white: #FEF8F6;
 
 body {
-  font-family: Open Sans, sans-serif;
   font-family: Raleway, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 .bg-container {
@@ -87,17 +85,15 @@ body {
 
 .splash-container {
   text-align: center;
-
+  margin-top: 15vh;
   .content {
     max-width: 80%;
-    margin: 14% auto 0;
+    margin: 70px auto;
   }
 
   .splash-logo {
     margin-top: 30px;
     margin-bottom: 30px;
-    font-family: Allura, sans-serif;
-    font-family: Lovers Quarrel, sans-serif;
     font-family: Pacifico, sans-serif;
     font-size: 3em;
   }
@@ -116,11 +112,16 @@ body {
   }
 
   .btn {
-    font-size: 1.8em;
+    font-size: 1.3em;
+    border-radius: 0;
     border-width: 0.07em;
-    padding: 0.4em 0.7em;
+    padding: 0.5em 1em;
     background: $brand-primary;
     color: $white;
+
+    &:hover {
+      background: darken($brand-primary, 8%);
+    }
   }
 
   #login {
@@ -213,6 +214,4 @@ body {
       text-decoration: none;
     }
 }
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-}
+
