@@ -13,7 +13,7 @@ var AddOrder = React.createClass({
       post: []
     };
   },
-  createOrder: function(buyer, seller, price, quantity) {
+  createOrder: function(name, buyer, seller, price, quantity) {
     var total = price * quantity;
     var Order = Parse.Object.extend('Order');
     var user = Parse.User.current();
@@ -21,6 +21,7 @@ var AddOrder = React.createClass({
 
     var query = new Parse.Query(Parse.User);
     query.equalTo("username", seller).find().then((res) => {
+      order.set('name', name);
       order.set('buyerUser', user);
       order.set('sellerUser', res[0]);
       order.set('buyer', buyer);
@@ -43,12 +44,13 @@ var AddOrder = React.createClass({
     });
   },
   handleAddOrderClick: function() {
+    var name = this.state.post.name;
     var buyer = this.state.user;
     var seller = this.state.post.madeby;
     var price = this.state.post.price;
     var quantity = $('#order-item-quantity').val();
 
-    this.createOrder(buyer, seller, price, quantity);
+    this.createOrder(name, buyer, seller, price, quantity);
 
   },
   componentDidMount: function() {
@@ -84,7 +86,7 @@ var AddOrder = React.createClass({
       <td className="value">{this.state.post.madeby}</td>
       </tr>
       <tr className="foodName">
-      <td className="heading">Cuisine</td>
+      <td className="heading">Name</td>
       <td className="value">{this.state.post.name}</td>
       </tr>
       <tr className="price">
