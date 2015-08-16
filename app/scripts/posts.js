@@ -92,7 +92,9 @@ var Posts = React.createClass({
     return (
       <div className="content">
         <div className="container">
-          <h3 className="text-info">Recently Added</h3>
+          <div className="container-fluid banner" id="welcome">
+            <h1>Got a craving?</h1>
+          </div>
           <ul className="posts list-unstyled">
             { this.state.posts.slice(0, limit ).map(function(post, index) {
               return <Post {...post} key={index} orderable={orderable}/>
