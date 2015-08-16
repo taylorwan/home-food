@@ -38,9 +38,20 @@ app.post('/message', function(req, res) {
   console.log(req.body);
 
   client.sendMessage({
-    to:'+13472608289', 
+    to: req.body.toNumber, 
     from: '+13478942961', 
-    body: 'word to your mother.' 
+    body: req.body.message
+  }, function(err, responseData) { 
+    if (!err) { 
+      console.log(responseData.from); 
+      console.log(responseData.body); 
+    }
+  });
+
+  client.sendMessage({
+    to: req.body.fromNumber, 
+    from: '+13478942961', 
+    body: 'You ordered on HomeFood!'
   }, function(err, responseData) { 
     if (!err) { 
       console.log(responseData.from); 

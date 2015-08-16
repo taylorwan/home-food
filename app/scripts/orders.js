@@ -77,7 +77,9 @@ var Orders = React.createClass({
               <div className="all-orders">
                 <h3 className="text-info">All Orders</h3>
                 <ul className="orders list-unstyled">
-                  { this.state.orders.slice(0, limit ).map(function(order, index) {
+                  { this.state.orders.slice(0, limit ).filter(function(order) {
+                    return Parse.User.current().get('username') === order.buyer;
+                  }).map(function(order, index) {
                     return <Order {...order} key={index}/>
                   }) }
                 </ul>

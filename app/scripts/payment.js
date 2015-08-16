@@ -31,22 +31,27 @@ var Payment = React.createClass({
           var item = this.state.item;
           item.set("quantity", (parseInt(item.get("quantity")) - 1).toString());
           item.save();
-          console.log(item.get('user'));
-          var data = {
-            fromNumber: Parse.User.current().get('phone'), 
-            toNumber: item.get("user").get('phone'), 
-            message: 'You have a buyer!'
-          };
-          console.log(data);
+          var query = new Parse.Query('User');
+          query.equalTo('objectId', item.get('user').toJSON().objectId);
 
-          $.ajax({
-            type: "POST",
-            url: '/message',
-            data: data,
-            success: function(dataSucess) {
-              console.log(dataSucess);
+          query.find({
+            success:function(results) {
+              var data = {
+                fromNumber: Parse.User.current().get('phone'), 
+                toNumber: results[0].get('phone'), 
+                message: 'You have a buyer!'
+              };
+              console.log(data);
+              $.ajax({
+                type: "POST",
+                url: '/message',
+                data: data,
+                success: function(dataSucess) {
+                  console.log(dataSucess);
+                }
+              });
             }
-          });
+          })
 
           this.transitionTo('profile');
         }

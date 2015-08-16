@@ -90,7 +90,8 @@ var Profile = React.createClass({
 
       <h3 className="text-info">Food By You</h3>
       <div className="profile-img-holder">
-      <img src="images/t.jpg" className="img-responsive img-circle text-center"/>
+        <img src="images/t.jpg" className="img-responsive img-circle text-center"/>
+        <h3 className="username-center" >{Parse.User.current().get('username')}</h3>
       </div>
 
       <ul className="posts list-unstyled">
@@ -102,7 +103,7 @@ var Profile = React.createClass({
       </div>
       </div>
 
-      <Orders limit={3}/>
+      <Orders limit={8}/>
       </div>
     )
   }

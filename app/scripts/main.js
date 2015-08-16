@@ -91,9 +91,10 @@ var App = React.createClass({
     });
   },
   logout: function() {
-    Parse.User.logOut();
-    this.setState({user: Parse.User.current()});
-    this.transitionTo('/');
+    Parse.User.logOut().then(function() {
+      //this.setState({user: Parse.User.current()});
+      this.transitionTo('/');
+    });
   },
   render: function() {
     if (this.state.user) {
