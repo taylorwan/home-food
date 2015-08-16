@@ -73,8 +73,15 @@ body {
   margin-bottom: 0;
   margin: 10px 0;
   color: $brand-primary;
+  border-bottom: 1px solid $brand-primary;
   a {
     color: $brand-primary;
+  }
+}
+
+.navbar-header {
+  a {
+    font-family: Pacifico, sans-serif;
   }
 }
 

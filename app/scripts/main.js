@@ -16,7 +16,7 @@ Parse.initialize(Secrets.getParseKey1(), Secrets.getParseKey2());
 var transition = function() {
   $('.collapse').collapse("hide");
   return true;
-}
+};
 
 var Header = React.createClass({
   render: function() {
@@ -44,15 +44,34 @@ var Header = React.createClass({
       </header>
     )
   }
-})
+});
 
 var Home = React.createClass({
+  render: function() {
+    return (
+      <div className="content">
+        <Posts limit={3} orderable={true} />
+      </div>
+    )
+  }
+});
+
+var App = React.createClass({
+  mixins : [Router.Navigation],
   getInitialState: function() {
     return {
+      user: Parse.User.current(),
       isLoginScreen: false,
       username: '',
       password: ''
     }
+  },
+  componentDidMount: function() {
+    $.get('/client_token', function(clientToken) {
+      braintree.setup(clientToken, "dropin", {
+        container: "payment-form"
+      });
+    })
   },
   welcomeScreen: function() {
     return (
@@ -104,15 +123,11 @@ var Home = React.createClass({
     this.transitionTo('/');
   },
   render: function() {
-    var user = Parse.User.current();
-    console.log(this.state.isLoginScreen);
-    if (user) {
+    if (this.state.user) {
       return (
         <div className="container">
           <Header logout={this.logout} />
-          <div className="content">
-            <Posts limit={3}/>
-          </div>
+          <RouteHandler user={this.state.user}/>
         </div>
       )
     } else {
@@ -142,18 +157,6 @@ var Home = React.createClass({
         </div>
       )
     }
-  }
-});
-
-var App = React.createClass({
-  mixins : [Router.Navigation],
-  getInitialState: function() {
-    return {user: Parse.User.current() }
-  },
-  render: function() {
-    return (
-      <RouteHandler user={this.state.user}/>
-    )
   }
 });
 

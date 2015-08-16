@@ -38,7 +38,7 @@ var Profile = React.createClass({
             </div>
           </div>
         </div>
-        <Posts limit={3}/>
+        <Posts limit={3} orderable={false} />
         <Orders limit={3}/>
       </div>
     )

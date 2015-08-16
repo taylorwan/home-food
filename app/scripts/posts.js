@@ -9,16 +9,18 @@ Parse.initialize(Secrets.getParseKey1(), Secrets.getParseKey2());
 var transition = function() {
   $('.collapse').collapse("hide");
   return true;
-}
+};
 
 var Post = React.createClass({
   render: function() {
     return (
       <li className="bg-info post">
       <h4 className="post-type pull-left">{this.props.name}</h4>
+      {
+        this.props.orderable ? <Link className="pull-right button" to="food" params={{id: this.props.id + "" }} onClick={transition}>Order</Link> : null
+      }
       <br/>
       <br/>
-      <Link className="pull-right button" to="food" params={{id: this.props.id + "" }} onClick={transition}>Order</Link>
       <table className="table table-condensed">
       <tr className="image">
       <img src={this.props.imageLink} height="200px" width="280px" className="img-responsive"/>
@@ -57,7 +59,7 @@ var Posts = React.createClass({
   getInitialState: function() {
     return {
       posts: []
-    };
+    }
   },
   componentDidMount: function() {
     new Parse.Query('Post').find().then(function(res) {
@@ -73,6 +75,10 @@ var Posts = React.createClass({
   },
   render: function() {
     var limit = this.props.limit || this.state.posts.length;
+    var orderable = this.props.orderable;
+    if (orderable === undefined) {
+      orderable = true;
+    }
     return (
       <div className="content">
       <div className="container">
@@ -82,13 +88,12 @@ var Posts = React.createClass({
       <h3 className="text-info">Recently Added</h3>
       <ul className="posts list-unstyled">
       { this.state.posts.slice(0, limit ).map(function(post, index) {
-        return <Post {...post} key={index}/>
+        return <Post {...post} key={index} orderable={orderable}/>
       }) }
       </ul>
       </div>
       </div>
       </div>
-
       </div>
       </div>
     )
