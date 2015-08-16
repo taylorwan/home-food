@@ -14,7 +14,7 @@ var Post = React.createClass({
       <br/>
       <table className="table table-condensed">
       <tr className="image">
-      <img src={this.props.imageLink} height="200px" width="280px" className="img-responsive"/>
+      <img src={this.props.imageLink} className="img-responsive"/>
       </tr>
       <br/>
       <br/>

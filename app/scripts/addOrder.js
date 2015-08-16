@@ -12,7 +12,7 @@ var AddOrder = React.createClass({
   handleAddOrderClick: function() {
 
   },
-  render: function() {
+  componentDidMount: function() {
     var id = this.props.params.id;
     console.log(id);
     console.log()
@@ -20,9 +20,18 @@ var AddOrder = React.createClass({
     query.equalTo("objectId", id);
     post = {}
     query.find().then(function(res) {
-      post = res;
-    });
-    console.log(post);
+      console.log(res);
+      res = res.map(function(el) {
+        if(el.get('imageFile')) el.set('imageLink', el.get('imageFile').url());
+        return el.toJSON();
+      });
+      this.setState({
+        post: res
+      });
+
+    }.bind(this));
+  },
+  render: function() {
     return (
       <div className="content">
         <div className="container">
@@ -33,19 +42,19 @@ var AddOrder = React.createClass({
                 <table className="table table-condensed">
                 <tr className="foodName">
                 <td className="heading">Cuisine</td>
-                <td className="value">{this.props.name}</td>
+                <td className="value">{this.state.post.name}</td>
                 </tr>
                 <tr className="price">
                 <td className="heading">Price</td>
-                <td className="value">$ {this.props.price}</td>
+                <td className="value">$ {this.state.post.price}</td>
                 </tr>
                 <tr className="available">
                 <td className="heading">Quantity Available</td>
-                <td className="value">{this.props.quantity} {this.props.unit}</td>
+                <td className="value">{this.state.post.quantity} {this.state.post.unit}</td>
                 </tr>
                 <tr className="notice">
                 <td className="heading">Prior Days Needed: </td>
-                <td className="value">{this.props.notice} Days</td>
+                <td className="value">{this.state.post.notice} Days</td>
                 </tr>
                 </table>
               </div>

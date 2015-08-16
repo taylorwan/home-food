@@ -13,6 +13,10 @@ var transition = function() {
 
 var Post = React.createClass({
   render: function() {
+    if (this.props.madeby === Parse.User.current().get("username")) {
+      this.props.orderable = false;
+    }
+    console.log(this.props.orderable);
     return (
       <li className="bg-info post">
       <h4 className="post-type pull-left">{this.props.name}</h4>
@@ -92,7 +96,7 @@ var Posts = React.createClass({
           <h3 className="text-info">Recently Added</h3>
           <ul className="posts list-unstyled">
             { this.state.posts.slice(0, limit ).map(function(post, index) {
-              return <Post {...post} key={index}/>
+              return <Post {...post} key={index} orderable={orderable}/>
             }) }
           </ul>
         </div>
