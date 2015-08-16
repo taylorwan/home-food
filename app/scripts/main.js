@@ -16,7 +16,7 @@ Parse.initialize(Secrets.getParseKey1(), Secrets.getParseKey2());
 var transition = function() {
   $('.collapse').collapse("hide");
   return true;
-}
+};
 
 var Header = React.createClass({
   render: function() {
@@ -44,11 +44,10 @@ var Header = React.createClass({
       </header>
     )
   }
-})
+});
 
 var Home = React.createClass({
   render: function() {
-    var user = Parse.User.current();
     return (
       <div className="content">
         <Posts limit={3} orderable={true} />
@@ -124,9 +123,7 @@ var App = React.createClass({
     this.transitionTo('/');
   },
   render: function() {
-    var user = Parse.User.current();
-    console.log(this.state.isLoginScreen);
-    if (user) {
+    if (this.state.user) {
       return (
         <div className="container">
           <Header logout={this.logout} />
