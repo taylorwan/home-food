@@ -12,44 +12,42 @@ var transition = function() {
 }
 
 var Post = React.createClass({
-    // postObj.set('name', name);
-    // postObj.set('foodType', type);
-    // postObj.set('price', price);
-    // postObj.set('unit', unit);
-    // postObj.set('notice', notice);
-    // postObj.set('quantity', quantity);
-    // postObj.set('user', user);
   render: function() {
     return (
       <li className="bg-info post">
       <h4 className="post-type pull-left">{this.props.name}</h4>
+      <br/>
+      <br/>
       <Link className="pull-right button" to="food" params={{id: this.props.id + "" }} onClick={transition}>Order</Link>
-        <table className="table table-condensed">
-          <tr className="foodType">
-            <td className="heading">Cuisine</td>
-            <td className="value">{this.props.foodType}</td>
-          </tr>
-          <tr className="price">
-            <td className="heading">Price</td>
-            <td className="value">$ {this.props.price}</td>
-          </tr>
-          <tr className="available">
-            <td className="heading">Quantity Available</td>
-            <td className="value">{this.props.quantity} {this.props.unit}</td>
-          </tr>
-          <tr className="notice">
-            <td className="heading">Prior Days Needed: </td>
-            <td className="value">{this.props.notice} Days</td>
-          </tr>
-          <tr className="city">
-            <td className="heading">City </td>
-            <td className="value">{this.props.city}</td>
-          </tr>
-          <tr className="user">
-            <td className="heading">Made by </td>
-            <td className="value">{this.props.madeby}</td>
-          </tr>
-        </table>
+      <table className="table table-condensed">
+      <tr className="image">
+      <img src={this.props.imageLink} height="200px" width="280px" className="img-responsive"/>
+      </tr>
+      <tr className="foodType">
+      <td className="heading">Cuisine</td>
+      <td className="value">{this.props.foodType}</td>
+      </tr>
+      <tr className="price">
+      <td className="heading">Price</td>
+      <td className="value">$ {this.props.price}</td>
+      </tr>
+      <tr className="available">
+      <td className="heading">Quantity Available</td>
+      <td className="value">{this.props.quantity} {this.props.unit}</td>
+      </tr>
+      <tr className="notice">
+      <td className="heading">Prior Days Needed: </td>
+      <td className="value">{this.props.notice} Days</td>
+      </tr>
+      <tr className="city">
+      <td className="heading">City </td>
+      <td className="value">{this.props.city}</td>
+      </tr>
+      <tr className="user">
+      <td className="heading">Made by </td>
+      <td className="value">{this.props.madeby}</td>
+      </tr>
+      </table>
       </li>
     )
   }
@@ -57,17 +55,20 @@ var Post = React.createClass({
 
 var Posts = React.createClass({
   getInitialState: function() {
-  return {
+    return {
       posts: []
     };
   },
   componentDidMount: function() {
     new Parse.Query('Post').find().then(function(res) {
-      res = res.map(function(el) { return el.toJSON(); });
+      res = res.map(function(el) {
+        if(el.get('imageFile')) el.set('imageLink', el.get('imageFile').url());
+        return el.toJSON();
+      });
       this.setState({
         posts: res
       });
-      
+
     }.bind(this));
   },
   render: function() {
