@@ -1,49 +1,60 @@
 var React = require('react');
+var Router = require('react-router');
+var Link = Router.Link;
 
 var sample = [{
   name: 'Tamales', 
   price: '$3/unit', 
-  availability: '2 days notice'
+  availability: '2 days notice',
+  id: 0
 }, {
   name: 'Tamales', 
   price: '$3/unit', 
-  availability: '2 days notice'
+  availability: '2 days notice',
+  id: 1
 }, {
   name: 'Tamales', 
   price: '$3/unit', 
-  availability: '2 days notice'
+  availability: '2 days notice',
+  id: 2
 }, {
   name: 'Tamales', 
   price: '$3/unit', 
-  availability: '2 days notice'
+  availability: '2 days notice',
+  id: 3
 }, {
   name: 'Tamales', 
   price: '$3/unit', 
-  availability: '2 days notice'
+  availability: '2 days notice',
+  id: 4
 }, {
   name: 'Tamales', 
   price: '$3/unit', 
-  availability: '2 days notice'
+  availability: '2 days notice',
+  id: 5
 }, {
   name: 'Tamales', 
   price: '$3/unit', 
-  availability: '2 days notice'
+  availability: '2 days notice',
+  id: 6
 }, {
   name: 'Tamales', 
   price: '$3/unit', 
-  availability: '2 days notice'
-}, {
-  name: 'Tamales', 
-  price: '$3/unit', 
-  availability: '2 days notice'
+  availability: '2 days notice',
+  id: 7
 }];
+
+var transition = function() {
+  $('.collapse').collapse("hide");
+  return true;
+}
 
 var Post = React.createClass({
   render: function() {
     return (
-      <li className="bg-info post">
+      <li className="postcoll">
         <h4 className="post-type pull-left">{this.props.name}</h4>
-        <a href="#" className="pull-right order-this-item btn btn-primary btn-sm" data-toggle="modal" data-target="#orderItemModal">Order</a>
+        <Link className="pull-right button " to="food" params={{id: this.props.id + "" }} onClick={transition}>Order</Link>
         <table className="table table-condensed">
           <tr className="price">
             <td className="heading">Price</td>
