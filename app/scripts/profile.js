@@ -8,16 +8,19 @@ Parse.initialize(Secrets.getParseKey1(), Secrets.getParseKey2());
 var Post = React.createClass({
   render: function() {
     return (
-      <li className="bg-info post">
+      <li className="bg-info post container-fluid">
+      <div className="row">
+      <div className="col-md-12">
       <h4 className="post-type pull-left">{this.props.name}</h4>
-      <br/>
-      <br/>
-      <table className="table table-condensed">
-      <tr className="image">
+      {
+        this.props.orderable ?
+        <Link to="addOrder" className="pull-right button" params={{id: this.props.objectId}} onClick={transition}> Order</Link> : null
+      }
+      </div>
+      <div className="post-image col-md-4">
       <img src={this.props.imageLink} className="img-responsive"/>
-      </tr>
-      <br/>
-      <br/>
+      </div>
+      <table className="table-condensed col-md-8">
       <tr className="foodType">
       <td className="heading">Cuisine</td>
       <td className="value">{this.props.foodType}</td>
@@ -43,6 +46,7 @@ var Post = React.createClass({
       <td className="value">{this.props.madeby}</td>
       </tr>
       </table>
+      </div>
       </li>
     )
   }
