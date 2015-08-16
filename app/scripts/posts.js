@@ -47,7 +47,7 @@ var Post = React.createClass({
     return (
       <li className="bg-info post">
       <h4 className="post-type pull-left">{this.props.name}</h4>
-      <Link className="pull-right button " to="food" params={{id: this.props.id + "" }} onClick={transition}>Order</Link>
+      <Link className="pull-right button" to="food" params={{id: this.props.id + "" }} onClick={transition}>Order</Link>
         <table className="table table-condensed">
           <tr className="price">
             <td className="heading">Price</td>
