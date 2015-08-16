@@ -5,27 +5,49 @@ var Orders = require('./orders');
 var Secrets = require('./secrets');
 Parse.initialize(Secrets.getParseKey1(), Secrets.getParseKey2());
 
-var samplePosts = [{
-  name: 'Tamales', 
-  price: '$3/unit', 
-  availability: '2 days notice'
-}, {
-  name: 'Tamales', 
-  price: '$3/unit', 
-  availability: '2 days notice'
-}];
+var Post = React.createClass({
+  render: function() {
+    return (
+      <li className="bg-info post">
+      <h4 className="post-type pull-left">{this.props.name}</h4>
+      <br/>
+      <br/>
+      <table className="table table-condensed">
+      <tr className="image">
+      <img src={this.props.imageLink} height="200px" width="280px" className="img-responsive"/>
+      </tr>
+      <br/>
+      <br/>
+      <tr className="foodType">
+      <td className="heading">Cuisine</td>
+      <td className="value">{this.props.foodType}</td>
+      </tr>
+      <tr className="price">
+      <td className="heading">Price</td>
+      <td className="value">$ {this.props.price}</td>
+      </tr>
+      <tr className="available">
+      <td className="heading">Quantity Available</td>
+      <td className="value">{this.props.quantity} {this.props.unit}</td>
+      </tr>
+      <tr className="notice">
+      <td className="heading">Prior Days Needed: </td>
+      <td className="value">{this.props.notice} Days</td>
+      </tr>
+      <tr className="city">
+      <td className="heading">City </td>
+      <td className="value">{this.props.city}</td>
+      </tr>
+      <tr className="user">
+      <td className="heading">Made by </td>
+      <td className="value">{this.props.madeby}</td>
+      </tr>
+      </table>
+      </li>
+    )
+  }
+});
 
-var sampleOrders = [{
-  name: 'Tamales',
-  price: '$3/unit',
-  qty: '20',
-  ddate: '09/20/15'
-}];
-
-var transition = function() {
-  $('.collapse').collapse("hide");
-  return true;
-};
 
 var Profile = React.createClass({
   getInitialState: function() {
@@ -51,22 +73,32 @@ var Profile = React.createClass({
     }.bind(this));
   },
   render: function() {
-    console.log(this.props.name);
+
+    var limit = this.props.limit || this.state.posts.length;
+    var orderable = this.props.orderable;
+    if (orderable === undefined) {
+      orderable = true;
+    }
     return (
       <div className="content">
-      <div className="container">
+        <div className="container">
       <div className="row">
       <div className="col-md-12">
+
+          <h3 className="text-info">Food By You</h3>
       <div className="profile-img-holder">
       <img src="images/t.jpg" className="img-responsive img-circle text-center"/>
       </div>
 
-      </div>
+          <ul className="posts list-unstyled">
+            { this.state.posts.slice(0, limit ).map(function(post, index) {
+              return <Post {...post} key={index}/>
+            }) }
+          </ul>
+        </div>
       </div>
       </div>
 
-
-      <Posts limit={3} orderable={false} />
       <Orders limit={3}/>
       </div>
     )
