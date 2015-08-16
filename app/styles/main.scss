@@ -115,6 +115,16 @@ body {
     background: $brand-primary;
     color: $white;
   }
+
+  #login {
+    max-width: 400px;
+    margin: 0 auto;
+
+    input {
+      font-size: 1.5em;
+      height: auto;
+    }
+  }  
 }
 
 .jumbotron {
