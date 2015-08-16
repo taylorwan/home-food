@@ -15,7 +15,6 @@ $yellow: #f4d300;
 $green: #62d435;
 $orange: #fa621c;
 $grey: #f5f5f5;
-$blue: #00B9D7;
 $white: #ffffff;
 $black: #333333;
 
@@ -28,6 +27,13 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+.text-info {
+  color: $brand-primary !important;
+  margin-bottom: 30px;
+}
+.bg-info {
+  background-color: $grey;
+}
 .bg-container {
   position: fixed;
   top: 0;
@@ -60,8 +66,6 @@ body {
   background-color: #f5f5f5;
   padding-top: 30px;
   padding-bottom: 30px;
-  background: url(../images/vietnamese.jpg) no-repeat center center fixed; 
-  background-size: cover;
   margin: 10px 0; 
   display: flex;
   justify-content: center;
@@ -77,6 +81,22 @@ body {
 
 }
 
+@media (min-width: 768px) {
+  .banner {
+    height: 250px;
+  }
+}
+
+#welcome {
+  background: url(../images/viet2.jpg) no-repeat center center fixed; 
+  background-size: cover;
+  background-position: center top;
+}
+
+#addpost-banner {
+  background: url(../images/vietnamese.jpg) no-repeat center center fixed; 
+  background-size: cover;
+}
 
 .browserupgrade {
   margin: 0.2em 0;

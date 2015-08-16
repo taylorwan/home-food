@@ -11,22 +11,6 @@ var gateway = braintree.connect({
     privateKey:   '1fa2f95bd1a0690de2af5c4553c26849'
 });
 
-gateway.transaction.sale({
-  amount: '5.00',
-  creditCard: {
-    number: '5105105105105100',
-    expirationDate: '05/12'
-  }
-}, function (err, result) {
-  if (err) throw err;
-
-  if (result.success) {
-    util.log('Transaction ID: ' + result.transaction.id);
-  } else {
-    util.log(result.message);
-  }
-});
-
 // Twilio Credentials 
 // var accountSid = 'ACfc927d066ae91adf7dd19dbbe9b9ba46'; 
 // var authToken = '[AuthToken]'; 

@@ -33,8 +33,7 @@ var AddOrder = React.createClass({
       order.save(null, {
         success: (res) => {
           console.log('order made');
-          this.transitionTo('profile');
-
+          this.transitionTo('payment', {foodId: this.props.params.id});
         },
         error: (res) => {
           console.log(res.toJSON());
@@ -51,7 +50,6 @@ var AddOrder = React.createClass({
     var quantity = $('#order-item-quantity').val();
 
     this.createOrder(name, buyer, seller, price, quantity);
-
   },
   componentDidMount: function() {
     var id = this.props.params.id;

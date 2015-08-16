@@ -6,6 +6,7 @@ var AddPost = require('./addPost');
 var AddOrder = require('./addOrder');
 var Secrets = require('./secrets');
 var Orders = require('./orders');
+var Payment = require('./payment');
 // import Secrets from './secrets';
 var DefaultRoute = Router.DefaultRoute;
 var Route = Router.Route;
@@ -58,7 +59,6 @@ var Home = React.createClass({
 });
 
 var App = React.createClass({
-  mixins : [Router.Navigation],
   getInitialState: function() {
     return {
       user: Parse.User.current(),
@@ -66,13 +66,6 @@ var App = React.createClass({
       username: '',
       password: ''
     }
-  },
-  componentDidMount: function() {
-    $.get('/client_token', function(clientToken) {
-      braintree.setup(clientToken, "dropin", {
-        container: "payment-form"
-      });
-    })
   },
   handleScreenChange: function(event) {
     this.setState({isLoginScreen: true});
@@ -147,6 +140,7 @@ var routes = (
     <Route name="food" path="food/:id" handler={Orders} />
     <Route name="addPost" handler={AddPost} />
     <Route name="addOrder" path="order/:id" handler={AddOrder} />
+    <Route name="payment" path="payment/:foodId" handler={Payment}/>
   </Route>
 );
 

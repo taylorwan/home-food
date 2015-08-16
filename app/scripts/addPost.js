@@ -70,7 +70,7 @@ var AddPost = React.createClass({
   render: function() {
     return (
       <div>
-        <div className="container-fluid banner">
+        <div className="container-fluid banner" id="addpost-banner">
           <h1>I heard you make a mean...</h1>
         </div>
         <div className="container-fluid postForm">
