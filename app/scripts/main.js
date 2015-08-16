@@ -85,7 +85,7 @@ var Home = React.createClass({
         <form id="login" onSubmit={this.handleSubmit}>
           <input type="text" className="form-control" placeholder="Username" onChange={this.handleUsernameChange}/>
           <input type="password" className="form-control" placeholder="Password" onChange={this.handlePasswordChange}/>
-          <button type="submit" className="btn btn-primary">Log in</button>
+          <button type="submit" className="btn">Log in</button>
         </form>
       </div>
     )
