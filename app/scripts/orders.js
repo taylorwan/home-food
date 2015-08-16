@@ -20,7 +20,7 @@ var Order = React.createClass({
     return (
       <li className="bg-info order">
         <h4 className="order-type">{this.props.name}</h4>
-        <table className="table table-condensed">
+        <table className="table-condensed">
           <tr className="price">
             <td className="heading">Buyer</td>
             <td className="value">{this.props.buyer}</td>
