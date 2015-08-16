@@ -23,7 +23,9 @@ var Post = React.createClass({
     return (
       <li className="bg-info post">
       <h4 className="post-type pull-left">{this.props.name}</h4>
-      <Link className="pull-right button" to="food" params={{id: this.props.id + "" }} onClick={transition}>Order</Link>
+      {
+        this.props.orderable ? <Link className="pull-right button" to="food" params={{id: this.props.id + "" }} onClick={transition}>Order</Link> : null
+      }
         <table className="table table-condensed">
           <tr className="foodType">
             <td className="heading">Cuisine</td>
@@ -57,9 +59,9 @@ var Post = React.createClass({
 
 var Posts = React.createClass({
   getInitialState: function() {
-  return {
+    return {
       posts: []
-    };
+    }
   },
   componentDidMount: function() {
     new Parse.Query('Post').find().then(function(res) {
@@ -72,23 +74,23 @@ var Posts = React.createClass({
   },
   render: function() {
     var limit = this.props.limit || this.state.posts.length;
+    var orderable = this.props.orderable;
     return (
       <div className="content">
-      <div className="container">
-      <div className="row">
-      <div className="col-md-12">
-      <div className="all-posts">
-      <h3 className="text-info">Recently Added</h3>
-      <ul className="posts list-unstyled">
-      { this.state.posts.slice(0, limit ).map(function(post, index) {
-        return <Post {...post} key={index}/>
-      }) }
-      </ul>
-      </div>
-      </div>
-      </div>
-
-      </div>
+        <div className="container">
+          <div className="row">
+            <div className="col-md-12">
+              <div className="all-posts">
+                <h3 className="text-info">Recently Added</h3>
+                <ul className="posts list-unstyled">
+                  { this.state.posts.slice(0, limit ).map(function(post, index) {
+                    return <Post {...post} key={index} orderable={orderable}/>
+                  }) }
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }

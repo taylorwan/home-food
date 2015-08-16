@@ -47,12 +47,32 @@ var Header = React.createClass({
 })
 
 var Home = React.createClass({
+  render: function() {
+    var user = Parse.User.current();
+    return (
+      <div className="content">
+        <Posts limit={3} orderable={true} />
+      </div>
+    )
+  }
+});
+
+var App = React.createClass({
+  mixins : [Router.Navigation],
   getInitialState: function() {
     return {
+      user: Parse.User.current(),
       isLoginScreen: false,
       username: '',
       password: ''
     }
+  },
+  componentDidMount: function() {
+    $.get('/client_token', function(clientToken) {
+      braintree.setup(clientToken, "dropin", {
+        container: "payment-form"
+      });
+    })
   },
   welcomeScreen: function() {
     return (
@@ -110,9 +130,7 @@ var Home = React.createClass({
       return (
         <div className="container">
           <Header logout={this.logout} />
-          <div className="content">
-            <Posts limit={3}/>
-          </div>
+          <RouteHandler user={this.state.user}/>
         </div>
       )
     } else {
@@ -142,25 +160,6 @@ var Home = React.createClass({
         </div>
       )
     }
-  }
-});
-
-var App = React.createClass({
-  mixins : [Router.Navigation],
-  getInitialState: function() {
-    return {user: Parse.User.current() }
-  },
-  componentDidMount: function() {
-    $.get('/client_token', function(clientToken) {
-      braintree.setup(clientToken, "dropin", {
-        container: "payment-form"
-      });
-    })
-  },
-  render: function() {
-    return (
-      <RouteHandler user={this.state.user}/>
-    )
   }
 });
 
