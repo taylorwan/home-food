@@ -27,7 +27,7 @@ var Post = React.createClass({
         <table className="table table-condensed">
           <tr className="foodType">
             <td className="heading">Cuisine</td>
-            <td className="value">$ {this.props.foodType}</td>
+            <td className="value">{this.props.foodType}</td>
           </tr>
           <tr className="price">
             <td className="heading">Price</td>
@@ -41,9 +41,13 @@ var Post = React.createClass({
             <td className="heading">Prior Days Needed: </td>
             <td className="value">{this.props.notice} Days</td>
           </tr>
-          <tr className="user">
+          <tr className="city">
             <td className="heading">City </td>
             <td className="value">{this.props.city}</td>
+          </tr>
+          <tr className="user">
+            <td className="heading">Made by </td>
+            <td className="value">{this.props.madeby}</td>
           </tr>
         </table>
       </li>
