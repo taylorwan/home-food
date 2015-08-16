@@ -25,8 +25,6 @@ var AddPost = React.createClass({
     postObj.set('user', user);
     postObj.set('madeby', user.get('username'));
     
-    console.log(imageFile);
-
     var parseFile = new Parse.File(user.get('username'), imageFile);
     parseFile.save().then(function() {
       console.log('file saved');
@@ -60,7 +58,7 @@ var AddPost = React.createClass({
     var unit = $('#add-post-unit').val();
     var city = $('#add-post-city').val();
     var notice = $('#add-post-notice').val();
-    var quantity = $('#add-post-quantity').va;
+    var quantity = $('#add-post-quantity').val();
     var imageFile = document.getElementById("add-post-image-file");
 
     if (name + type + price + unit + city + notice + quantity === "") alert('empty field');

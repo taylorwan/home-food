@@ -16,7 +16,6 @@ var Post = React.createClass({
     if (this.props.madeby === Parse.User.current().get("username")) {
       this.props.orderable = false;
     }
-    console.log(this.props.orderable);
     return (
       <li className="bg-info post">
       <h4 className="post-type pull-left">{this.props.name}</h4>
