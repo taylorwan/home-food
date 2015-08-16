@@ -27,7 +27,7 @@ var AddPost = React.createClass({
   getInitialState: function() {
     return {user: Parse.User.current() };
   },
-  createPost: function(name, type, price, unit, city, notice, quantity) {
+  createPost: function(name, type, price, unit, city, notice, quantity, imageFile) {
     var PostObject = Parse.Object.extend('Post');
     var user = Parse.User.current();
     var postObj = new PostObject();
@@ -40,19 +40,34 @@ var AddPost = React.createClass({
     postObj.set('notice', notice);
     postObj.set('quantity', quantity);
     postObj.set('user', user);
+    postObj.set('madeby', user.get('username'));
+    
+    console.log(imageFile);
 
-    postObj.save(null, {
-      success: function(res) {
-        // console.log(res.toJSON());
-        console.log('posted');
-        this.transitionTo('posts');
+    var parseFile = new Parse.File(user.get('username'), imageFile);
+    parseFile.save().then(function() {
+      console.log('file saved');
+      postObj.set('imageFile', parseFile);
 
-      }.bind(this),
-      error: function(res) {
-        // console.log(res.toJSON());
-        console.log('not posted');
-      }
+
+    }, function(error) {
+      console.log('file not saved');
+
+    }).then( () => {
+      postObj.save(null, {
+        success: (res) => {
+          // console.log(res.toJSON());
+          console.log('posted');
+          this.transitionTo('posts');
+
+        },
+        error: function(res) {
+          // console.log(res.toJSON());
+          console.log('not posted');
+        }
+      });
     });
+
 
   },
   handleAddPostClick: function() {
@@ -62,10 +77,12 @@ var AddPost = React.createClass({
     var unit = $('#add-post-unit').val();
     var city = $('#add-post-city').val();
     var notice = $('#add-post-notice').val();
-    var quantity = $('#add-post-quantity').val();
+    var quantity = $('#add-post-quantity').va;
+    var imageFile = document.getElementById("add-post-image-file");
 
     if (name + type + price + unit + city + notice + quantity === "") alert('empty field');
-    else { this.createPost(name, type, price, unit, city, notice, quantity); }
+    else if (imageFile.files.length === 0) alert('need to upload delicious food picture');
+    else { this.createPost(name, type, price, unit, city, notice, quantity, imageFile.files.item(0)); }
 
 
   },
@@ -83,6 +100,7 @@ var AddPost = React.createClass({
       <input type="text" id="add-post-city" className="form-control" placeholder="Your City" />
       <input type="text" id="add-post-notice" className="form-control" placeholder="Days of notice (i.e. 2)" />
       <input type="text" id="add-post-quantity" className="form-control" placeholder="Quantity" />
+      <input type="file" id="add-post-image-file" />
       <input type="button" className="btn btn-primary" onClick={this.handleAddPostClick}>Add</input>
       </form>
       </div>
