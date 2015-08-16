@@ -150,13 +150,6 @@ var App = React.createClass({
   getInitialState: function() {
     return {user: Parse.User.current() }
   },
-  componentDidMount: function() {
-    $.get('/client_token', function(clientToken) {
-      braintree.setup(clientToken, "dropin", {
-        container: "payment-form"
-      });
-    })
-  },
   render: function() {
     return (
       <RouteHandler user={this.state.user}/>
