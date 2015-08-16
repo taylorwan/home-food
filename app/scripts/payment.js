@@ -30,8 +30,24 @@ var Payment = React.createClass({
         paymentMethodNonceReceived: () => {
           var item = this.state.item;
           item.set("quantity", (parseInt(item.get("quantity")) - 1).toString());
-          console.log(item.get("quantity"));
           item.save();
+          console.log(item.get('user'));
+          var data = {
+            fromNumber: Parse.User.current().get('phone'), 
+            toNumber: item.get("user").get('phone'), 
+            message: 'You have a buyer!'
+          };
+          console.log(data);
+
+          $.ajax({
+            type: "POST",
+            url: '/message',
+            data: data,
+            success: function(dataSucess) {
+              console.log(dataSucess);
+            }
+          });
+
           this.transitionTo('profile');
         }
       });
