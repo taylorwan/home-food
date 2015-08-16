@@ -16,52 +16,51 @@ var Post = React.createClass({
     if (this.props.madeby === Parse.User.current().get("username")) {
       this.props.orderable = false;
     }
-    return (
-      <li className="bg-info post">
-      <h4 className="post-type pull-left">{this.props.name}</h4>
-      {
-        this.props.orderable ?
-        <Link
-        to="addOrder"
-        className="pull-right button"
-        params={{id: this.props.objectId}}
-        onClick={transition}>
-        Order</Link> :
-        null
-      }
-      <br/>
-      <br/>
-      <table className="table table-condensed">
-      <tr className="image">
-      <img src={this.props.imageLink} className="img-responsive" width="400px" height="200px" />
-      </tr>
-      <tr className="foodType">
-      <td className="heading">Cuisine</td>
-      <td className="value">{this.props.foodType}</td>
-      </tr>
-      <tr className="price">
-      <td className="heading">Price</td>
-      <td className="value">$ {this.props.price}</td>
-      </tr>
-      <tr className="available">
-      <td className="heading">Quantity Available</td>
-      <td className="value">{this.props.quantity} {this.props.unit}</td>
-      </tr>
-      <tr className="notice">
-      <td className="heading">Prior Days Needed: </td>
-      <td className="value">{this.props.notice} Days</td>
-      </tr>
-      <tr className="city">
-      <td className="heading">City </td>
-      <td className="value">{this.props.city}</td>
-      </tr>
-      <tr className="user">
-      <td className="heading">Made by </td>
-      <td className="value">{this.props.madeby}</td>
-      </tr>
-      </table>
-      </li>
-    )
+    if (this.props.orderable) {
+      return (
+        <li className="bg-info post container-fluid">
+        <div className="row">
+        <div className="col-md-12">
+        <h4 className="post-type pull-left">{this.props.name}</h4>
+        <Link to="addOrder" className="pull-right button" params={{id: this.props.objectId}} onClick={transition}> Order</Link>
+        </div>
+        <div className="post-image col-md-4">
+        <img src={this.props.imageLink} className="img-responsive"/>
+        </div>
+        <table className="table-condensed col-md-8">
+        <tr className="foodType">
+        <td className="heading">Cuisine</td>
+        <td className="value">{this.props.foodType}</td>
+        </tr>
+        <tr className="price">
+        <td className="heading">Price</td>
+        <td className="value">$ {this.props.price}</td>
+        </tr>
+        <tr className="available">
+        <td className="heading">Quantity Available</td>
+        <td className="value">{this.props.quantity} {this.props.unit}</td>
+        </tr>
+        <tr className="notice">
+        <td className="heading">Prior Days Needed: </td>
+        <td className="value">{this.props.notice} Days</td>
+        </tr>
+        <tr className="city">
+        <td className="heading">City </td>
+        <td className="value">{this.props.city}</td>
+        </tr>
+        <tr className="user">
+        <td className="heading">Made by </td>
+        <td className="value">{this.props.madeby}</td>
+        </tr>
+        </table>
+        </div>
+        </li>
+      )
+    } else {
+      return (
+        <div className="empty-div"></div>
+      )
+    }
   }
 });
 

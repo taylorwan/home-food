@@ -262,3 +262,13 @@ body {
   width: 500px;
   max-width: 100%;
 }
+
+.post-image {
+  max-height: 13em;
+  margin-bottom: 1em;
+  overflow: hidden;
+
+  img {
+    min-width: 100%;
+  }
+}
