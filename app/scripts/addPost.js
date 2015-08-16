@@ -38,7 +38,7 @@ var AddPost = React.createClass({
                 <input type="text" className="form-control" placeholder="Unit (i.e. lbs, tamale)" />
                 <input type="text" className="form-control" placeholder="Your City" />
                 <input type="text" className="form-control" placeholder="Days of notice (i.e. 2)" />
-                <button type="submit" className="btn btn-primary"/>Add</button>
+                <button type="submit" className="btn btn-primary">Add</button>
               </form>
             </div>
           </div>

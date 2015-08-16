@@ -8,7 +8,7 @@ $yellow: #f4d300;
 $green: #62d435;
 $orange: #fa621c;
 $grey: #f5f5f5;
-
+$blue: #00B9D7;
 
 $brand-primary: $orange;
 $brand-secondary: $green;
@@ -18,7 +18,9 @@ body {
   border-top: $yellow 7px solid;
 }
 
-
+.banner {
+  background-color: #f5f5f5;
+}
 .browserupgrade {
   margin: 0.2em 0;
   background: #ccc;

@@ -33,7 +33,7 @@ var Profile = React.createClass({
           <div className="row">
             <div className="col-md-12">
               <div className="profile-img-holder">
-                <img src="img/t.jpg" className="img-responsive img-circle text-center"/>
+                <img src="images/t.jpg" className="img-responsive img-circle text-center"/>
               </div>
             </div>
           </div>
