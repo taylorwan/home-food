@@ -6,6 +6,7 @@ var Secrets = require('./secrets');
 Parse.initialize(Secrets.getParseKey1(), Secrets.getParseKey2());
 
 var AddOrder = React.createClass({
+  mixins : [Router.Navigation],
   getInitialState: function() {
     return {
       user: Parse.User.current().get('username'),
@@ -19,7 +20,7 @@ var AddOrder = React.createClass({
     var order = new Order();
 
     var query = new Parse.Query(Parse.User);
-    query.equalTo("username", seller).find().then(function(res) {
+    query.equalTo("username", seller).find().then((res) => {
       order.set('buyerUser', user);
       order.set('sellerUser', res[0]);
       order.set('buyer', buyer);
@@ -29,10 +30,12 @@ var AddOrder = React.createClass({
       order.set('total', total);
 
       order.save(null, {
-        success: function(res) {
+        success: (res) => {
           console.log('order made');
+          this.transitionTo('profile');
+
         },
-        error: function(res) {
+        error: (res) => {
           console.log(res.toJSON());
           console.log('order not made');
         }

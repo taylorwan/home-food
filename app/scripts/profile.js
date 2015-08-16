@@ -61,7 +61,6 @@ var Profile = React.createClass({
     var query = new Parse.Query('Post');
     query.equalTo('user', user);
     query.find().then(function(res) {
-      console.log(res);
       res = res.map(function(el) {
         if(el.get('imageFile')) el.set('imageLink', el.get('imageFile').url());
         return el.toJSON();
