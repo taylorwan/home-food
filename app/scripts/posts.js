@@ -5,37 +5,6 @@ var Link = Router.Link;
 var Secrets= require('./secrets');
 Parse.initialize(Secrets.getParseKey1(), Secrets.getParseKey2());
 
-// var PostObject = Parse.Object.extend('Post');
-// var user = Parse.User.current();
-
-// console.log(user.toJSON());
-
-// // SET OBJECT
-// var postObj = new PostObject();
-// postObj.set('name', 'Casserole');
-// postObj.set('price', '2');
-// postObj.set('unit', '100');
-// postObj.set('availability', '2');
-// postObj.set('foodType', 'American');
-// postObj.set('user', user);
-
-
-// // SAVE OBJECT
-// postObj.save(null, {
-//   success: function(res) {
-//     var query = new Parse.Query(PostObject);
-//     query.equalTo('user', user);
-//     query.find({
-//       success: function(res){
-//         console.log('posted');
-//       }
-//     });
-//   },
-//   error: function(res) {
-//     console.log(res);
-//     console.log('not posted');
-//   }
-// });
 
 var transition = function() {
   $('.collapse').collapse("hide");
@@ -43,23 +12,38 @@ var transition = function() {
 }
 
 var Post = React.createClass({
+    // postObj.set('name', name);
+    // postObj.set('foodType', type);
+    // postObj.set('price', price);
+    // postObj.set('unit', unit);
+    // postObj.set('notice', notice);
+    // postObj.set('quantity', quantity);
+    // postObj.set('user', user);
   render: function() {
     return (
       <li className="bg-info post">
       <h4 className="post-type pull-left">{this.props.name}</h4>
       <Link className="pull-right button" to="food" params={{id: this.props.id + "" }} onClick={transition}>Order</Link>
         <table className="table table-condensed">
+          <tr className="foodType">
+            <td className="heading">Cuisine</td>
+            <td className="value">$ {this.props.foodType}</td>
+          </tr>
           <tr className="price">
             <td className="heading">Price</td>
             <td className="value">$ {this.props.price}</td>
           </tr>
           <tr className="available">
-            <td className="heading">Available</td>
-            <td className="value">{this.props.availability}</td>
+            <td className="heading">Quantity Available</td>
+            <td className="value">{this.props.quantity} {this.props.unit}</td>
           </tr>
-          <tr className="foodType">
-            <td className="heading">Type</td>
-            <td className="value">{this.props.foodType}</td>
+          <tr className="notice">
+            <td className="heading">Prior Days Needed: </td>
+            <td className="value">{this.props.notice} Days</td>
+          </tr>
+          <tr className="user">
+            <td className="heading">City </td>
+            <td className="value">{this.props.city}</td>
           </tr>
         </table>
       </li>

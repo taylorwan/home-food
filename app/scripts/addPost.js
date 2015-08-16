@@ -36,6 +36,7 @@ var AddPost = React.createClass({
     postObj.set('foodType', type);
     postObj.set('price', price);
     postObj.set('unit', unit);
+    postObj.set('city', city);
     postObj.set('notice', notice);
     postObj.set('quantity', quantity);
     postObj.set('user', user);
