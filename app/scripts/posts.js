@@ -17,13 +17,20 @@ var Post = React.createClass({
       <li className="bg-info post">
       <h4 className="post-type pull-left">{this.props.name}</h4>
       {
-        this.props.orderable ? <Link className="pull-right button" to="food" params={{id: this.props.id + "" }} onClick={transition}>Order</Link> : null
+        this.props.orderable ?
+        <Link
+        to="addOrder"
+        className="pull-right button"
+        params={{id: this.props.objectId}}
+        onClick={transition}>
+        Order</Link> :
+        null
       }
       <br/>
       <br/>
       <table className="table table-condensed">
       <tr className="image">
-      <img src={this.props.imageLink} height="200px" width="280px" className="img-responsive"/>
+      <img src={this.props.imageLink} className="img-responsive"/>
       </tr>
       <tr className="foodType">
       <td className="heading">Cuisine</td>

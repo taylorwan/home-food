@@ -3,6 +3,7 @@ var Router = require('react-router');
 var Posts = require('./posts');
 var Profile = require('./profile');
 var AddPost = require('./addPost');
+var AddOrder = require('./addOrder');
 var Secrets = require('./secrets');
 var Orders = require('./orders');
 // import Secrets from './secrets';
@@ -85,7 +86,6 @@ var App = React.createClass({
     )
   },
   handleScreenChange: function(event) {
-    console.log("screenchange");
     this.setState({isLoginScreen: true});
   },
   handleUsernameChange: function(event) {
@@ -112,7 +112,7 @@ var App = React.createClass({
   login: function(username, password) {
     Parse.User.logIn(username, password, {
       success: function(user) {
-        this.forceUpdate();
+        this.setState({user: Parse.User.current()})
       }.bind(this),
       error: function(user, error) {
       }
@@ -167,6 +167,7 @@ var routes = (
     <Route name="profile" handler={Profile} />
     <Route name="food" path="food/:id" handler={Orders} />
     <Route name="addPost" handler={AddPost} />
+    <Route name="addOrder" path="order/:id" handler={AddOrder} />
   </Route>
 );
 
