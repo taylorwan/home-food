@@ -33,7 +33,7 @@ var Post = React.createClass({
       <br/>
       <table className="table table-condensed">
       <tr className="image">
-      <img src={this.props.imageLink} className="img-responsive"/>
+      <img src={this.props.imageLink} className="img-responsive" width="400px" height="200px" />
       </tr>
       <tr className="foodType">
       <td className="heading">Cuisine</td>

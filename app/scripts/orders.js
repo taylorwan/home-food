@@ -75,7 +75,7 @@ var Orders = React.createClass({
           <div className="row">
             <div className="col-md-12">
               <div className="all-orders">
-                <h3 className="text-info">Recent Orders</h3>
+                <h3 className="text-info">All Orders</h3>
                 <ul className="orders list-unstyled">
                   { this.state.orders.slice(0, limit ).map(function(order, index) {
                     return <Order {...order} key={index}/>

@@ -80,21 +80,21 @@ var Profile = React.createClass({
     }
     return (
       <div className="content">
-        <div className="container">
+      <div className="container">
       <div className="row">
       <div className="col-md-12">
 
-          <h3 className="text-info">Food By You</h3>
+      <h3 className="text-info">Food By You</h3>
       <div className="profile-img-holder">
       <img src="images/t.jpg" className="img-responsive img-circle text-center"/>
       </div>
 
-          <ul className="posts list-unstyled">
-            { this.state.posts.slice(0, limit ).map(function(post, index) {
-              return <Post {...post} key={index}/>
-            }) }
-          </ul>
-        </div>
+      <ul className="posts list-unstyled">
+      { this.state.posts.slice(0, limit ).map(function(post, index) {
+        return <Post {...post} key={index}/>
+      }) }
+      </ul>
+      </div>
       </div>
       </div>
 
