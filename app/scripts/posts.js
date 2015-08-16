@@ -75,6 +75,9 @@ var Posts = React.createClass({
   render: function() {
     var limit = this.props.limit || this.state.posts.length;
     var orderable = this.props.orderable;
+    if (orderable === undefined) {
+      orderable = true;
+    }
     return (
       <div className="content">
         <div className="container">
