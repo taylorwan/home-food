@@ -52,6 +52,9 @@ var Home = React.createClass({
   render: function() {
     return (
       <div className="content">
+        <div className="container-fluid banner" id="welcome">
+          <h1>Got a craving?</h1>
+        </div>
         <Posts limit={3} orderable={true} />
       </div>
     )
