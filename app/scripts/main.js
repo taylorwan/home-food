@@ -73,17 +73,6 @@ var App = React.createClass({
       });
     })
   },
-  welcomeScreen: function() {
-    return (
-      <div className="content">
-        <h1 className="splash-title">Homemade delicacies, delivered.</h1>
-        <div className="splash-start">
-          <a href="#" onClick={this.handleState} className="btn btn-lg" data-toggle="modal" data-target="#loginModal">Get Started</a>
-          <a href="#" className="underlink">Or, log in</a>
-        </div>
-      </div>
-    )
-  },
   handleScreenChange: function(event) {
     console.log("screenchange");
     this.setState({isLoginScreen: true});
@@ -97,22 +86,12 @@ var App = React.createClass({
   handleSubmit: function(event) {
     event.preventDefault();
     this.login(this.state.username, this.state.password);
-  },
-  loginScreen: function() {
-    return (
-      <div className="content">
-        <form id="login" onSubmit={this.handleSubmit}>
-          <input type="text" className="form-control" placeholder="Username" onChange={this.handleUsernameChange}/>
-          <input type="password" className="form-control" placeholder="Password" onChange={this.handlePasswordChange}/>
-          <button type="submit" className="btn">Log in</button>
-        </form>
-      </div>
-    )
+    
   },
   login: function(username, password) {
     Parse.User.logIn(username, password, {
       success: function(user) {
-        this.forceUpdate();
+        this.setState({user: Parse.User.current()});
       }.bind(this),
       error: function(user, error) {
       }
@@ -140,8 +119,8 @@ var App = React.createClass({
             { this.state.isLoginScreen ?
               <div className="content">
                 <form id="login" onSubmit={this.handleSubmit}>
-                  <input type="text" className="form-control" placeholder="Username" onChange={this.handleUsernameChange}/>
-                  <input type="password" className="form-control" placeholder="Password" onChange={this.handlePasswordChange}/>
+                  <input type="text" className="form-control loginInput" placeholder="Username" onChange={this.handleUsernameChange}/>
+                  <input type="password" className="form-control loginInput" placeholder="Password" onChange={this.handlePasswordChange}/>
                   <button type="submit" className="btn btn-primary">Log in</button>
                 </form>
               </div> :
