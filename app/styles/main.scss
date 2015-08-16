@@ -4,23 +4,64 @@ $icon-font-path: '../fonts/';
 @import "bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 // endbower
 
+// fonts
+@import url('http://fonts.googleapis.com/css?family=Roboto');
+@import url('http://fonts.googleapis.com/css?family=Raleway');
+@import url('http://fonts.googleapis.com/css?family=Open+Sans');
+
+@import url('http://fonts.googleapis.com/css?family=Pacifico');
+@import url('http://fonts.googleapis.com/css?family=Allura');
+@import url('http://fonts.googleapis.com/css?family=Lovers+Quarrel');
+
 $yellow: #f4d300;
 $green: #62d435;
 $orange: #fa621c;
 $grey: #f5f5f5;
 $blue: #00B9D7;
+$white: #ffffff;
+$black: #333333;
 
 $brand-primary: $orange;
 $brand-secondary: $green;
 $brand-white: #FEF8F6;
 
 body {
-  border-top: $yellow 7px solid;
+  font-family: Open Sans, sans-serif;
+  font-family: Raleway, sans-serif;
+}
+
+.bg-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: url(../images/bg2.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+  color: $white;
+}
+
+.bg-container:before {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: $black;
+  opacity: 0.7;
+  content: '';
+  z-index: -1;
+}
+
+:hover {
+  transition: all linear .1s;
 }
 
 .banner {
   background-color: #f5f5f5;
 }
+
 .browserupgrade {
   margin: 0.2em 0;
   background: #ccc;
@@ -37,17 +78,58 @@ body {
   }
 }
 
+.splash-container {
+  text-align: center;
+
+  .content {
+    max-width: 80%;
+    margin: 14% auto 0;
+  }
+
+  .splash-logo {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-family: Allura, sans-serif;
+    font-family: Lovers Quarrel, sans-serif;
+    font-family: Pacifico, sans-serif;
+    font-size: 3em;
+  }
+
+  .splash-title {
+    font-size: 4em;
+    margin-bottom: 0.5em;
+  }
+
+  .underlink {
+    display: block;
+    margin-top: 0.3em;
+    color: $white;
+    text-decoration: underline;
+    font-size: 1.2em;
+  }
+
+  .btn {
+    font-size: 1.8em;
+    border-width: 0.07em;
+    padding: 0.4em 0.7em;
+    background: $brand-primary;
+    color: $white;
+  }
+}
+
 .jumbotron {
   background: $brand-primary;
   color: $brand-white;
 }
 
-.jumbotron .btn {
-  border-color: $brand-white;
-  color: $brand-white;
-  &:hover {
-    background: $brand-white;
-    color: $brand-primary;
+.jumbotron {
+  .btn {
+    border-color: $brand-white;
+    color: $brand-white;
+    &:hover {
+      background: $brand-white;
+      color: $brand-primary;
+    }
   }
 }
 

@@ -4,7 +4,7 @@ var Posts = require('./posts');
 var Profile = require('./profile');
 var AddPost = require('./addPost');
 var Secrets = require('./secrets');
-var Order = require('./order');
+var Orders = require('./orders');
 // import Secrets from './secrets';
 var DefaultRoute = Router.DefaultRoute;
 var Route = Router.Route;
@@ -17,6 +17,7 @@ var transition = function() {
   $('.collapse').collapse("hide");
   return true;
 }
+
 var Header = React.createClass({
   render: function() {
     return (
@@ -32,18 +33,12 @@ var Header = React.createClass({
             <Link to="/" className="navbar-brand col-md-2" onClick={transition}>HomeFood</Link>
           </div>
           <nav id="bs-navbar" className="collapse navbar-collapse">
-            { !Parse.User.current() ?
-              <ul className="nav navbar-nav">
-                <li><a href="" data-toggle="modal" data-target="#loginModal">Login</a></li>
-                <li><Link to="posts" onClick={transition}>Browse Food</Link></li>
-              </ul>:
-              <ul className="nav navbar-nav">
-                <li><Link to="posts" onClick={transition}>Browse Food</Link></li>
-                <li><Link to="addPost" onClick={transition}>Post Food</Link></li>
-                <li><Link to="profile" onClick={transition}>Profile</Link></li>
-                <li><a href="" onClick={this.props.logout}>Logout</a></li>
-              </ul>
-            }
+            <ul className="nav navbar-nav">
+              <li><Link to="posts" onClick={transition}>Browse Food</Link></li>
+              <li><Link to="addPost" onClick={transition}>Post Food</Link></li>
+              <li><Link to="profile" onClick={transition}>Profile</Link></li>
+              <li><a href="" onClick={this.props.logout}>Logout</a></li>
+            </ul>
           </nav>
         </div>
       </header>
@@ -51,9 +46,28 @@ var Header = React.createClass({
   }
 })
 
-var LoginModal = React.createClass({
+var Home = React.createClass({
   getInitialState: function() {
-    return {username: '', password: ''}
+    return {
+      isLoginScreen: false,
+      username: '',
+      password: ''
+    }
+  },
+  welcomeScreen: function() {
+    return (
+      <div className="content">
+        <h1 className="splash-title">Homemade delicacies, delivered.</h1>
+        <div className="splash-start">
+          <a href="#" onClick={this.handleState} className="btn btn-lg" data-toggle="modal" data-target="#loginModal">Get Started</a>
+          <a href="#" className="underlink">Or, log in</a>
+        </div>
+      </div>
+    )
+  },
+  handleScreenChange: function(event) {
+    console.log("screenchange");
+    this.setState({isLoginScreen: true});
   },
   handleUsernameChange: function(event) {
     this.setState({username: event.target.value});
@@ -63,45 +77,71 @@ var LoginModal = React.createClass({
   },
   handleSubmit: function(event) {
     event.preventDefault();
-    this.props.login(this.state.username, this.state.password);
+    this.login(this.state.username, this.state.password);
   },
-  render: function() {
-    return (
-      <div className="modal fade login-modal" id="loginModal" tabIndex="-1" role="dialog" aria-labelledby="loginModalLabel">
-        <div className="modal-dialog" role="document">
-          <div className="modal-content">
-            <div className="modal-body">
-              <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 className="modal-title" id="loginModalLabel">Log in</h4>
-              <form id="login" onSubmit={this.handleSubmit}>
-                <input type="text" className="form-control" placeholder="Username" onChange={this.handleUsernameChange}/>
-                <input type="password" className="form-control" placeholder="Password" onChange={this.handlePasswordChange}/>
-                <button type="submit" className="btn btn-primary">Log in</button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-  }
-});
-
-
-var Home = React.createClass({
-  render: function() {
+  loginScreen: function() {
     return (
       <div className="content">
-        <div className="jumbotron container">
-          <div className="row">
-            <div className="col-md-12">
-              <h1>Homemade delicacies, delivered.</h1>
-              { Parse.User.current() ? null : <a href="#" className="btn btn-lg" data-toggle="modal" data-target="#loginModal">Get Started</a> }
-            </div>
-          </div>
-        </div>
-        <Posts limit={3}/>
+        <form id="login" onSubmit={this.handleSubmit}>
+          <input type="text" className="form-control" placeholder="Username" onChange={this.handleUsernameChange}/>
+          <input type="password" className="form-control" placeholder="Password" onChange={this.handlePasswordChange}/>
+          <button type="submit" className="btn btn-primary">Log in</button>
+        </form>
       </div>
     )
+  },
+  login: function(username, password) {
+    Parse.User.logIn(username, password, {
+      success: function(user) {
+        this.forceUpdate();
+      }.bind(this),
+      error: function(user, error) {
+      }
+    });
+  },
+  logout: function() {
+    Parse.User.logOut();
+    this.transitionTo('/');
+  },
+  render: function() {
+    var user = Parse.User.current();
+    console.log(this.state.isLoginScreen);
+    if (user) {
+      return (
+        <div className="container">
+          <Header logout={this.logout} />
+          <div className="content">
+            <Posts limit={3}/>
+          </div>
+        </div>
+      )
+    } else {
+      return (
+        <div className="bg-container">
+          <div className="splash-container" id="splash-container">
+            <div className="splash-logo">
+              HomeFood
+            </div>
+            { this.state.isLoginScreen ?
+              <div className="content">
+                <form id="login" onSubmit={this.handleSubmit}>
+                  <input type="text" className="form-control" placeholder="Username" onChange={this.handleUsernameChange}/>
+                  <input type="password" className="form-control" placeholder="Password" onChange={this.handlePasswordChange}/>
+                  <button type="submit" className="btn btn-primary">Log in</button>
+                </form>
+              </div> :
+              <div className="content">
+                <h1 className="splash-title">Homemade delicacies, delivered.</h1>
+                <div className="splash-start">
+                  <a href="#" onClick={this.handleScreenChange} className="btn btn-lg" data-toggle="modal" data-target="#loginModal">Get Started</a>
+                  <a href="#" onClick={this.handleScreenChange} className="underlink">Or, log in</a>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      )
+    }
   }
 });
 
@@ -117,29 +157,9 @@ var App = React.createClass({
       });
     })
   },
-  login: function(username, password) {
-    Parse.User.logIn(username, password, {
-      success: function(user) {
-        $('#loginModal').modal('hide');
-        $('.collapse').collapse("hide");
-        this.forceUpdate();
-      }.bind(this),
-      error: function(user, error) {
-        
-      }
-    });
-  },
-  logout: function() {
-    Parse.User.logOut();
-    this.transitionTo('/');
-  },
   render: function() {
     return (
-      <div>
-        <Header logout={this.logout}/>
-        <RouteHandler user={this.state.user}/>
-        <LoginModal login={this.login} />
-      </div>
+      <RouteHandler user={this.state.user}/>
     )
   }
 });
@@ -149,7 +169,7 @@ var routes = (
     <DefaultRoute handler={Home} />
     <Route name="posts" handler={Posts} />
     <Route name="profile" handler={Profile} />
-    <Route name="food" path="food/:id" handler={Order} />
+    <Route name="food" path="food/:id" handler={Orders} />
     <Route name="addPost" handler={AddPost} />
   </Route>
 );
