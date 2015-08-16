@@ -2,47 +2,40 @@ var React = require('react');
 var Router = require('react-router');
 var Link = Router.Link;
 
-var sample = [{
-  name: 'Tamales', 
-  price: '$3/unit', 
-  availability: '2 days notice',
-  id: 0
-}, {
-  name: 'Tamales', 
-  price: '$3/unit', 
-  availability: '2 days notice',
-  id: 1
-}, {
-  name: 'Tamales', 
-  price: '$3/unit', 
-  availability: '2 days notice',
-  id: 2
-}, {
-  name: 'Tamales', 
-  price: '$3/unit', 
-  availability: '2 days notice',
-  id: 3
-}, {
-  name: 'Tamales', 
-  price: '$3/unit', 
-  availability: '2 days notice',
-  id: 4
-}, {
-  name: 'Tamales', 
-  price: '$3/unit', 
-  availability: '2 days notice',
-  id: 5
-}, {
-  name: 'Tamales', 
-  price: '$3/unit', 
-  availability: '2 days notice',
-  id: 6
-}, {
-  name: 'Tamales', 
-  price: '$3/unit', 
-  availability: '2 days notice',
-  id: 7
-}];
+var Secrets= require('./secrets');
+Parse.initialize(Secrets.getParseKey1(), Secrets.getParseKey2());
+
+// var PostObject = Parse.Object.extend('Post');
+// var user = Parse.User.current();
+
+// console.log(user.toJSON());
+
+// // SET OBJECT
+// var postObj = new PostObject();
+// postObj.set('name', 'Casserole');
+// postObj.set('price', '2');
+// postObj.set('unit', '100');
+// postObj.set('availability', '2');
+// postObj.set('foodType', 'American');
+// postObj.set('user', user);
+
+
+// // SAVE OBJECT
+// postObj.save(null, {
+//   success: function(res) {
+//     var query = new Parse.Query(PostObject);
+//     query.equalTo('user', user);
+//     query.find({
+//       success: function(res){
+//         console.log('posted');
+//       }
+//     });
+//   },
+//   error: function(res) {
+//     console.log(res);
+//     console.log('not posted');
+//   }
+// });
 
 var transition = function() {
   $('.collapse').collapse("hide");
@@ -52,17 +45,21 @@ var transition = function() {
 var Post = React.createClass({
   render: function() {
     return (
-      <li className="postcoll">
-        <h4 className="post-type pull-left">{this.props.name}</h4>
-        <Link className="pull-right button " to="food" params={{id: this.props.id + "" }} onClick={transition}>Order</Link>
+      <li className="bg-info post">
+      <h4 className="post-type pull-left">{this.props.name}</h4>
+      <Link className="pull-right button " to="food" params={{id: this.props.id + "" }} onClick={transition}>Order</Link>
         <table className="table table-condensed">
           <tr className="price">
             <td className="heading">Price</td>
-            <td className="value">{this.props.price}</td>
+            <td className="value">$ {this.props.price}</td>
           </tr>
           <tr className="available">
             <td className="heading">Available</td>
             <td className="value">{this.props.availability}</td>
+          </tr>
+          <tr className="foodType">
+            <td className="heading">Type</td>
+            <td className="value">{this.props.foodType}</td>
           </tr>
         </table>
       </li>
@@ -72,27 +69,38 @@ var Post = React.createClass({
 
 var Posts = React.createClass({
   getInitialState: function() {
-    return {posts: sample}
+  return {
+      posts: []
+    };
+  },
+  componentDidMount: function() {
+    new Parse.Query('Post').find().then(function(res) {
+      res = res.map(function(el) { return el.toJSON(); });
+      this.setState({
+        posts: res
+      });
+      
+    }.bind(this));
   },
   render: function() {
     var limit = this.props.limit || this.state.posts.length;
     return (
       <div className="content">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <div className="all-posts">
-                <h3 className="text-info">Recently Added</h3>
-                <ul className="posts list-unstyled">
-                  { this.state.posts.slice(0, limit ).map(function(post, index) {
-                    return <Post {...post} key={index}/>
-                  }) }
-                </ul>
-              </div>
-            </div>
-          </div>
+      <div className="container">
+      <div className="row">
+      <div className="col-md-12">
+      <div className="all-posts">
+      <h3 className="text-info">Recently Added</h3>
+      <ul className="posts list-unstyled">
+      { this.state.posts.slice(0, limit ).map(function(post, index) {
+        return <Post {...post} key={index}/>
+      }) }
+      </ul>
+      </div>
+      </div>
+      </div>
 
-        </div>
+      </div>
       </div>
     )
   }

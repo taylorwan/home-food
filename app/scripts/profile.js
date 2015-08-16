@@ -2,7 +2,8 @@ var React = require('react');
 var Posts = require('./posts');
 var Orders = require('./orders');
 
-var React = require('react');
+var Secrets = require('./secrets');
+Parse.initialize(Secrets.getParseKey1(), Secrets.getParseKey2());
 
 var samplePosts = [{
   name: 'Tamales', 
@@ -22,6 +23,9 @@ var sampleOrders = [{
 }];
 
 var Profile = React.createClass({
+  getInitialState: function() {
+    return {user: Parse.User.current() };
+  },
   render: function() {
     return (
       <div className="content">
