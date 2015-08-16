@@ -1,40 +1,9 @@
 var React = require('react');
+var Router = require('react-router');
 var Posts = require('./posts');
 
 var Secrets = require('./secrets');
 Parse.initialize(Secrets.getParseKey1(), Secrets.getParseKey2());
-
-// var PostObject = Parse.Object.extend('Post');
-// var user = Parse.User.current();
-
-// console.log(user.toJSON());
-
-// // SET OBJECT
-// var postObj = new PostObject();
-// postObj.set('name', 'Casserole');
-// postObj.set('price', '2');
-// postObj.set('unit', '100');
-// postObj.set('availability', '2');
-// postObj.set('foodType', 'American');
-// postObj.set('user', user);
-
-
-// // SAVE OBJECT
-// postObj.save(null, {
-//   success: function(res) {
-//     var query = new Parse.Query(PostObject);
-//     query.equalTo('user', user);
-//     query.find({
-//       success: function(res){
-//         console.log('posted');
-//       }
-//     });
-//   },
-//   error: function(res) {
-//     console.log(res);
-//     console.log('not posted');
-//   }
-// });
 
 var samplePosts = [{
   name: 'Tamales',
@@ -54,6 +23,7 @@ var sampleOrders = [{
 }];
 
 var AddPost = React.createClass({
+  mixins : [Router.Navigation],
   getInitialState: function() {
     return {user: Parse.User.current() };
   },
@@ -72,15 +42,16 @@ var AddPost = React.createClass({
 
     postObj.save(null, {
       success: function(res) {
-        console.log(res.toJSON());
+        // console.log(res.toJSON());
         console.log('posted');
-      },
+        this.transitionTo('posts');
+
+      }.bind(this),
       error: function(res) {
-        console.log(res.toJSON());
+        // console.log(res.toJSON());
         console.log('not posted');
       }
     });
-
 
   },
   handleAddPostClick: function() {
