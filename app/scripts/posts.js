@@ -24,10 +24,10 @@ var Post = React.createClass({
         <h4 className="post-type pull-left">{this.props.name}</h4>
         <Link to="addOrder" className="pull-right button" params={{id: this.props.objectId}} onClick={transition}> Order</Link>
         </div>
-        <div className="post-image col-md-4">
+        <div className="post-image col-md-4 col-xs-12">
         <img src={this.props.imageLink} className="img-responsive"/>
         </div>
-        <table className="table-condensed col-md-8">
+        <table className="table-condensed col-md-8 col-xs-12">
         <tr className="foodType">
         <td className="heading">Cuisine</td>
         <td className="value">{this.props.foodType}</td>
