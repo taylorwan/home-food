@@ -5,16 +5,11 @@ var util = require('util');
 var app = express();
 var bodyParser = require('body-parser');
 
-var gateway = braintree.connect({
-    environment:  braintree.Environment.Sandbox,
-    merchantId:   'xnwy4w9cm8cnjng7',
-    publicKey:    'rm8t9mbvn3rf3zsz',
-    privateKey:   '1fa2f95bd1a0690de2af5c4553c26849'
-});
+var gateway = '<braintree>';
 
 //Twilio Credentials 
-var accountSid = 'ACfc927d066ae91adf7dd19dbbe9b9ba46'; 
-var authToken = '1a0808c3d8ef65fe063518d7b492a48b'; 
+var accountSid = '<sid>'; 
+var authToken = '<token>'; 
  
 //require the Twilio module and create a REST client 
 var client = require('twilio')(accountSid, authToken); 
